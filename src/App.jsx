@@ -1,12 +1,18 @@
-import './App.css'
+import { Outlet } from "react-router-dom";
+import "./App.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
-
   return (
-    <main>
-      Binkeyit App
-    </main>
-  )
+    <>
+      <Header />
+      <main className="h-[76vh]">
+        <Outlet />
+      </main>
+      <Footer />
+    </>
+  );
 }
 
-export default App
+export default App;
