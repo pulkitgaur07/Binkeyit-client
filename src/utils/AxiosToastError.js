@@ -1,4 +1,4 @@
-import taost    from 'react-hot-toast';
+import toast    from 'react-hot-toast';
 
 const AxiosToastError = (error)=>{
     toast.error(

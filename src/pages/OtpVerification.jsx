@@ -31,7 +31,7 @@ const OtpVerification = () => {
       const response = await Axios({
         ...SummaryApi.forgot_password_otp_verification,
         data: {
-          otp:data.json(""),
+          otp:data.join(""),
           email : location?.state?.email
         },
       });
@@ -41,7 +41,12 @@ const OtpVerification = () => {
       if (response.data.success) {
         toast.success(response.data.message);
         setData(["","","","","",""]); 
-        // navigate("/otp-verification");
+        navigate("/reset-password",{
+          state : {
+            data : response.data,
+            email : location?.state?.email
+          }
+        });
       }
     } catch (error) {
       AxiosToastError(error);
