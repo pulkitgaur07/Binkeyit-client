@@ -11,6 +11,15 @@ const Search = () => {
     const [isSearchPage, setIsSearchPage] = useState(false);
     const [ isMobile ] = useMobile();
 
+    const params = useLocation();
+    const searchText = params?.search?.slice(3);
+
+    const handleOnChange = (e)=>{
+      const value = e.target.value;
+      const url = `search?q=${value}`;
+      navigate(url);
+    }
+
     useEffect(()=>{
         const isSearch = location.pathname === "/search";
         setIsSearchPage(isSearch);
@@ -73,7 +82,9 @@ const Search = () => {
                         type="text"
                         placeholder="Search for aata, dal and more..."
                         autoFocus
+                        defaultValue={searchText}
                         className="w-full h-full bg-transparent outline-none"
+                        onChange={handleOnChange}
                     />
                 </div>
             )

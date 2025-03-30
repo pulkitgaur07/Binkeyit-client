@@ -18,15 +18,14 @@ const CategoryWiseProductDisplay = ({ id, name }) => {
   const loadingCardNumber = new Array(6).fill(null);
 
   const handleRedirectProductListPage = ()=>{
-    // const subcategory = subCategoryData.find(sub=>{
-    //   const filterData = sub.category.some(c => {
-    //     return c._id === id
-    //   })
-    //   return filterData ? true : null;
-    // })
-    // const url = `/${ValidURLConvert(name)}-${id}/${ValidURLConvert(subcategory?.name)}-${subcategory._id}`
-    // return url;
-    return "";
+    const subcategory = subCategoryData.find(sub=>{
+      const filterData = sub.category.some(c => {
+        return c._id === id
+      })
+      return filterData ? true : null;
+    })
+    const url = `/${ValidURLConvert(name)}-${id}/${ValidURLConvert(subcategory?.name)}-${subcategory?._id}`
+    return url;
   }
 
   const redirectURL = handleRedirectProductListPage();
