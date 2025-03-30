@@ -10,11 +10,11 @@ const ProductAdmin = () => {
   const [productData, setProductData] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [totalPagecount, setTotalPageCount] = useState(1);
+  const [totalPageCount, setTotalPageCount] = useState(1);
   const [search, setSearch] = useState("");
 
   const handleNext = () => {
-    if (page !== totalPagecount) {
+    if (page !== totalPageCount) {
       setPage((prev) => prev + 1);
     }
   };
@@ -31,7 +31,7 @@ const ProductAdmin = () => {
       const response = await Axios({
         ...SummaryApi.getProduct,
         data: {
-          page: 1,
+          page: page,
           limit: 12,
           search : search
         },
@@ -40,7 +40,7 @@ const ProductAdmin = () => {
       const { data: responseData } = response;
 
       if (responseData.success) {
-        setTotalPageCount(responseData, totalPagecount);
+        setTotalPageCount(responseData.totalCount);
         setProductData(responseData.data);
       }
     } catch (error) {
@@ -89,7 +89,7 @@ const ProductAdmin = () => {
         <div className="min-h-[55vh]">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {productData.map((p, index) => {
-              return <ProductCardAdmin data={p} />;
+              return <ProductCardAdmin fetchProductData={fetchProductData} data={p} />;
             })}
           </div>
         </div>
@@ -102,10 +102,10 @@ const ProductAdmin = () => {
             Previous
           </button>
           <button className="w-full bg-white">
-            {page}/{totalPagecount}
+            {page}/{totalPageCount}
           </button>
           <button
-            hidden={page === totalPagecount}
+            hidden={page === totalPageCount}
             onClick={handleNext}
             className="border border-primary-200 px-4 py-1 hover:bg-primary-200"
           >

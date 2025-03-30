@@ -85,7 +85,7 @@ const Login = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
                 id="password"
-                autoFocus
+                // autoFocus
                 className="bg-blue-50 w-full outline-none"
                 name="password"
                 value={data.password}

@@ -84,7 +84,7 @@ const OtpVerification = () => {
                                       inputRef.current[index+1].focus()
                                     }
                                 }}
-                                autoFocus
+                                autoFocus={!index}
                                 className="bg-blue-50 w-16 p-2 rounded border outline-none focus-within:border-primary-200 text-center font-semibold"
                             />
                         )

@@ -85,7 +85,7 @@ const Register = () => {
               type="email"
               placeholder="Enter your email"
               id="email"
-              autoFocus
+              // autoFocus
               className="bg-blue-50 p-2 rounded border outline-none focus-within:border-primary-200"
               name="email"
               value={data.email}
@@ -99,7 +99,7 @@ const Register = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
                 id="password"
-                autoFocus
+                // autoFocus
                 className="bg-blue-50 w-full outline-none"
                 name="password"
                 value={data.password}
@@ -126,7 +126,7 @@ const Register = () => {
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm your password"
                 id="confirmPassword"
-                autoFocus
+                // autoFocus
                 className="bg-blue-50 w-full outline-none"
                 name="confirmPassword"
                 value={data.confirmPassword}
