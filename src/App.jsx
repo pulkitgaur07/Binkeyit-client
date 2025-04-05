@@ -10,6 +10,8 @@ import { setUserDetails } from "./store/userSlice";
 import { setAllCategory, setAllSubCategory, setLoadingCategory } from "./store/productSlice";
 import { useDispatch } from "react-redux";
 import SummaryApi from "./common/SummaryApi";
+import GlobalProvider from "./provider/GlobalProvider";
+import CartMobileLink from "./components/CartMobileLink";
 
 function App() {
 
@@ -59,14 +61,15 @@ function App() {
   },[]);
 
   return (
-    <>
+    <GlobalProvider>
       <Header />
       <main className="min-h-[76vh]">
         <Outlet />
       </main>
       <Footer />
       <Toaster />
-    </>
+      <CartMobileLink />
+    </GlobalProvider>
   );
 }
 
