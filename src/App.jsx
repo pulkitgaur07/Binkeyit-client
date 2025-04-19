@@ -32,7 +32,7 @@ function App() {
 
       const { data: responseData } = response;
       if (responseData.success) {
-        dispatch(setAllCategory(responseData.data));
+        dispatch(setAllCategory(responseData.data.sort((a, b) => a.name.localeCompare(b.name))));
       }
     } catch (error) {
     }
@@ -49,7 +49,7 @@ function App() {
 
       const { data: responseData } = response;
       if (responseData.success) {
-        dispatch(setAllSubCategory(responseData.data));
+        dispatch(setAllSubCategory(responseData.data.sort((a, b) => a.name.localeCompare(b.name))));
       }
     } catch (error) {
     }
