@@ -3,12 +3,82 @@ import { DisplayPriceInRupees } from "../utils/DisplayPriceInRupees";
 import { useGlobalContext } from "../provider/GlobalProvider";
 import AddAddress from "../components/AddAddress";
 import { useSelector } from "react-redux";
+import AxiosToastError from "../utils/AxiosToastError";
+import Axios from "../utils/Axios";
+import SummaryApi from "../common/SummaryApi";
+import toast from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
 
 const CheckoutPage = () => {
-    const { notDiscountTotalPrice, totalPrice, totalQty } = useGlobalContext();
+    const { notDiscountTotalPrice, totalPrice, totalQty, fetchCartItem } = useGlobalContext();
     const [openAddress, setOpenAddress] = useState(false);
     const addressList = useSelector((state) => state.addresses.addressList);
     const [selectAddress, setSelectAddress] = useState(0);
+    const cartItemList = useSelector((state) => state.cartItem.cart);
+    const navigate = useNavigate();
+
+    const handleCashOnDelivery = async ()=>{
+      try{
+        const response = await Axios({
+          ...SummaryApi.cashOnDelivery,
+          data : {
+            list_items : cartItemList,
+            addressId : addressList[selectAddress]?._id,
+            subTotalAmt : totalPrice,
+            totalAmt : totalPrice
+          }
+        })
+
+        const { data : responseData } = response;
+        if(responseData.success){
+          toast.success(responseData.message);
+          if(fetchCartItem){
+            fetchCartItem();
+          }
+          navigate('/success',{
+            state : {
+              text : "Order"
+            }
+          });
+        }
+      }
+      catch(error){
+        AxiosToastError(error);
+      }
+    }
+
+    const handleOnlinePayment = async()=>{
+      try{
+        toast.loading("Loading...");
+        const stripePublicKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY
+
+        const stripePromise = await loadStripe(stripePublicKey);
+
+        const response = await Axios({
+          ...SummaryApi.payment_url,
+          data : {
+            list_items : cartItemList,
+            addressId : addressList[selectAddress]?._id,
+            subTotalAmt : totalPrice,
+            totalAmt : totalPrice
+          }
+        })
+        const { data : responseData } = response;
+
+        const result = await stripePromise.redirectToCheckout({sessionId : responseData.id})
+
+        console.log("Result, ", result);
+
+        if(fetchCartItem){
+          fetchCartItem()
+        }
+
+      }
+      catch(error){
+        AxiosToastError(error);
+      }
+    }
 
   return (
     <section className="bg-blue-50">
@@ -22,7 +92,7 @@ const CheckoutPage = () => {
                   <label htmlFor={"address"+index} className={!address.status && "hidden"}>
                     <div className="border rounded p-3 flex gap-3 hover:bg-blue-50">
                       <div>
-                        <input id={"address"+index} type="radio" value={index} onChange={()=>setSelectAddress(e.target.value)} name="address" />
+                        <input id={"address"+index} type="radio" value={index} onChange={(e)=>setSelectAddress(e.target.value)} name="address" />
                       </div>
                       <div>
                         <p>{address.address_line}</p>
@@ -70,8 +140,8 @@ const CheckoutPage = () => {
             </div>
           </div>
           <div className="w-full flex flex-col gap-4">
-            <button className="py-2 px-4 bg-green-600 hover:bg-green-700 text-white rounded font-semibold">Online Payment</button>
-            <button className="py-2 px-4 border-2 border-green-600 font-semibold text-green-600 hover:bg-green-600 hover:text-white rounded">Cash on Delivery</button>
+            <button onClick={handleOnlinePayment} className="py-2 px-4 bg-green-600 hover:bg-green-700 text-white rounded font-semibold">Online Payment</button>
+            <button onClick={handleCashOnDelivery} className="py-2 px-4 border-2 border-green-600 font-semibold text-green-600 hover:bg-green-600 hover:text-white rounded">Cash on Delivery</button>
           </div>
         </div>
       </div>

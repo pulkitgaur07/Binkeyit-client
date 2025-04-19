@@ -138,8 +138,16 @@ const SummaryApi = {
         method : 'put'
     },
     disableAddress : {
-        url : "api/address/disable",
+        url : "/api/address/disable",
         method : 'delete'
+    },
+    cashOnDelivery : {
+        url : "/api/order/cash-on-delivery",
+        method : 'post'
+    },
+    payment_url : {
+        url : "/api/order/checkout",
+        method : 'post'
     }
 }
 
