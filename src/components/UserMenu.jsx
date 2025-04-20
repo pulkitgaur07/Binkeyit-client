@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import AxiosToastError from "../utils/AxiosToastError";
 import { RiExternalLinkLine } from "react-icons/ri";
 import isAdmin from "../utils/IsAdmin";
+import { handleAddItemCart } from "../store/cartProduct";
 
 const UserMenu = ({ close }) => {
   const user = useSelector((state) => state.user);
@@ -27,6 +28,7 @@ const UserMenu = ({ close }) => {
         }
         dispatch(logout());
         localStorage.clear();
+        dispatch(handleAddItemCart([]));
         toast.success(response.data.message);
         navigate("/");
       }
