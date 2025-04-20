@@ -101,7 +101,7 @@ const GlobalProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    if (user && Object.keys(user).length > 0){
+    if (user && user._id){
     fetchCartItem();
     // handleLogout();
     fetchAddress();
