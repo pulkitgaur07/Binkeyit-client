@@ -19,13 +19,13 @@ const CardProduct = ({ data }) => {
           className="w-full h-full object-scale-down lg:scale-125"
         />
       </div>
-      <div className="flex items-center gap-1 px-2">
-        <div className="p-1 rounded text-xs w-fit px-2 text-green-600 bg-green-100">
+      <div className="flex items-center justify-between gap-1">
+        <div className="py-1 rounded text-xs w-fit px-2 text-green-600 bg-green-100">
           10 min
         </div>
         <div>
           {Boolean(data.discount) && (
-            <p className="text-green-700 bg-green-100 px-2 w-fit text-xs rounded">{data.discount}% discount</p>
+            <p className="text-green-700 bg-green-100 px-2 py-1 w-fit text-xs rounded">{data.discount}% discount</p>
           )}
         </div>
       </div>
