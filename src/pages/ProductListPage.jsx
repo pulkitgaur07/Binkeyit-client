@@ -72,7 +72,7 @@ const ProductListPage = () => {
 
   return (
     <section className="sticky top-24 lg:top-20">
-      <div className="container sticky top-24 mx-auto grid grid-cols-[100px,fr] md:grid-cols-[200px,1fr] lg:grid-cols-[300px,1fr]">
+      <div className="container sticky top-24 mx-auto grid grid-cols-[100px,1fr] md:grid-cols-[200px,1fr] lg:grid-cols-[300px,1fr]">
         {/* Sub Category */}
         <div className="min-h-[88vh] max-h-[88vh] overflow-y-scroll grid gap-1 shadow-md scrollbarCustom bg-white lg:py-4">
           {DisplaySubCategory?.map((s, index) => {
@@ -93,7 +93,7 @@ const ProductListPage = () => {
                     className="lg:h-14 w-14 lg:w-12 h-full object-scale-down"
                   />
                 </div>
-                <p className="-mt-7 lg:mt-0 text-xs lg:text-sm lg:text-left text-center">
+                <p className="-mt-4 lg:mt-0 text-xs lg:text-sm lg:text-left text-center">
                   {s.name}
                 </p>
               </Link>
