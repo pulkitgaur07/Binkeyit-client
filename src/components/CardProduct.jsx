@@ -19,7 +19,7 @@ const CardProduct = ({ data }) => {
           className="w-full h-full object-scale-down lg:scale-125"
         />
       </div>
-      <div className="flex items-center justify-between gap-1">
+      <div className="flex items-center justify-between gap-1 px-2">
         <div className="py-1 rounded text-xs w-fit px-2 text-green-600 bg-green-100">
           10 min
         </div>
