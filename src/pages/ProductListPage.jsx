@@ -86,7 +86,7 @@ const ProductListPage = () => {
                   subCategoryId === s._id ? "bg-green-100" : "bg-white"
                 }`}
               >
-                <div className="w-fit max-w-28 mx-auto lg:mx-0 bg-white rounded box-border">
+                <div className="w-fit max-w-28 mx-auto lg:mx-0 rounded box-border">
                   <img
                     src={s.image}
                     alt="subCategory"
